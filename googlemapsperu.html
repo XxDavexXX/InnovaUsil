@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/googlemapsperu.css">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
-    <title>Mapa Turístico de Perú</title>
+    <title>Mapa 2D</title>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJQOFFLigAwNLGwo6gMEHNq04WvHCI2KQ&libraries=places&callback=initMap" async defer></script>
     <style>
       #map {
@@ -299,49 +299,62 @@
         modal = document.createElement('div');
         modal.className = 'modal';
         modal.innerHTML = `
-          <div class="modal-content">
+        <div class="modal-content">
             <span class="close">&times;</span>
             <div id="modal-body"></div>
-          </div>
+        </div>
         `;
         document.body.appendChild(modal);
 
-        modalContent = document.getElementById('modal-body');
+        modalContent = document.querySelector('.modal-content');
         const closeButton = document.querySelector('.close');
 
         closeButton.onclick = function() {
-          modal.style.display = "none";
-          if (currentMarker) {
+        modal.style.display = "none";
+        if (currentMarker) {
             currentMarker.setAnimation(null); // Detener la animación del marcador si es necesario
-          }
+        }
         }
 
         window.onclick = function(event) {
-          if (event.target === modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
-          }
+        }
         }
 
         const locations = [
-          {lat: -12.0464, lng: -77.0428, title: 'Plaza Mayor de Lima'},
-          {lat: -12.0433, lng: -77.0283, title: 'Circuito Mágico del Agua'},
-          // Agrega aquí el resto de las ubicaciones
+        { lat: -12.0464, lng: -77.0428, title: 'Plaza Mayor de Lima', imageback: './images/plazamayorlima.jpg' },
+        // Agrega aquí el resto de las ubicaciones
         ];
 
         locations.forEach(function(location) {
-          const marker = new google.maps.Marker({
-            position: {lat: location.lat, lng: location.lng},
+        const marker = new google.maps.Marker({
+            position: { lat: location.lat, lng: location.lng },
             map: map,
             title: location.title
-          });
-
-          marker.addListener('click', function() {
-            currentMarker = marker;
-            modalContent.innerHTML = `<div><strong>${location.title}</strong></div>`;
-            modal.style.display = "flex";
-          });
         });
-      }
+
+        marker.addListener('click', function() {
+            currentMarker = marker;
+            modalContent.innerHTML = `
+            <span class="close">&times;</span>
+            <div id="modal-body"><strong>${location.title}</strong></div>
+            `;
+            modalContent.style.backgroundImage = `url('${location.imageback}')`;
+            modalContent.style.backgroundSize = 'cover';
+            modalContent.style.backgroundPosition = 'center';
+            modal.style.display = "flex";
+
+            // Reasignar el evento de cierre
+            document.querySelector('.close').onclick = function() {
+            modal.style.display = "none";
+            if (currentMarker) {
+                currentMarker.setAnimation(null); // Detener la animación del marcador si es necesario
+            }
+            }
+        });
+        });
+    }
     </script>
 </head>
 <body>

@@ -36,18 +36,21 @@ html, body {
 }
 .modal-content {
     background-color: #ffffffc5;
-    padding: 20px;
-    border: 1px solid #ffffff;
-    width: 75%; /* 60% del ancho de la pantalla */
-    height: 75%; /* 60% de la altura de la pantalla */
+    width: 75%; /* 75% del ancho de la pantalla */
+    height: 75%; /* 75% de la altura de la pantalla */
     max-width: 1200px; /* Opcional: ancho máximo */
     max-height: 800px; /* Opcional: altura máxima */
     position: relative;
     display: flex;
     flex-direction: column;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; /* Hace que la imagen cubra todo el fondo */
 }
+
+
 .close {
-    color: #aaa;
+    color: #000;
     font-size: 38px;
     font-weight: bold;
     position: absolute;
