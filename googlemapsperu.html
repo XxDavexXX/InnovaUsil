@@ -323,8 +323,14 @@
         }
 
         const locations = [
-        { lat: -12.0464, lng: -77.0428, title: 'Plaza Mayor de Lima', imageback: './images/plazamayorlima.jpg' },
-        // Agrega aquí el resto de las ubicaciones
+          {
+            lat: -12.0464, 
+            lng: -77.0428, 
+            title: 'Plaza Mayor de Lima', 
+            subtitle: 'El Corazón Histórico y Cultural de la Ciudad', 
+            texto: 'La Plaza de Armas de Lima, también conocida como Plaza Mayor, es el epicentro histórico y cultural de la capital peruana. Rodeada de impresionantes edificios coloniales como la Catedral de Lima y el Palacio de Gobierno, esta emblemática plaza ha sido testigo de importantes eventos a lo largo de los siglos. Un paseo por sus alrededores es una inmersión en la rica herencia arquitectónica y cultural de Perú.', 
+            imageback: './images/plazamayorlima.jpg'
+          },
         ];
 
         locations.forEach(function(location) {
@@ -338,9 +344,26 @@
             currentMarker = marker;
             modalContent.innerHTML = `
             <span class="close">&times;</span>
-            <div id="modal-body"><strong>${location.title}</strong></div>
+            <div id="modal-body">
+              <div class="contenedor_text_imgs">
+                <div class='contenedorimages'>
+                  <img class="img_gallery_imgs" src="${location.imageback}" ></img>
+                  <div class="img_gallery">
+                    <img class="img_gallery_imgs" src="${location.imageback}" ></img>
+                    <img class="img_gallery_imgs" src="${location.imageback}" ></img>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="text_h3_tittle">${location.title}</h2>
+                  <h4 class="text_align_start">${location.subtitle}</h3>
+                  <p class="text_align_justify">${location.texto}<p/>
+                  <hr></hr>
+                  <i class="text_align_justify">Al hacer clic en el botón de abajo, tendrá la oportunidad de explorar el lugar seleccionado en nuestro detallado mapa 2D. ¡Descubra todo lo que necesita saber para su próxima aventura!</i>
+                  <div class="contenedor_btn_gallery"><button class='btn_gallery'>Ver Más</button></div>
+                </div>
+              </div>
+            </div>
             `;
-            modalContent.style.backgroundImage = `url('${location.imageback}')`;
             console.log("imagen back cargada")
             modalContent.style.backgroundSize = 'cover';
             modalContent.style.backgroundPosition = 'center';
